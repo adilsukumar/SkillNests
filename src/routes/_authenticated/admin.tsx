@@ -231,6 +231,8 @@ function FounderInboxSection() {
 function PaidStatsSection() {
   const [stats, setStats] = useState<PaidStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [viewing, setViewing] = useState<"paid" | "free" | null>(null);
+
   useEffect(() => {
     const unsub = subscribePaidStats((s) => {
       setStats(s);
@@ -238,11 +240,16 @@ function PaidStatsSection() {
     });
     return () => unsub();
   }, []);
+
   const paid = stats?.paid ?? 0;
   const total = stats?.total ?? 0;
   const free = Math.max(0, total - paid);
   const conversion = total ? Math.round((paid / total) * 100) : 0;
   const revenue = paid * 49;
+  
+  const paidUsers = stats?.paidUsers || [];
+  const freeUsers = stats?.freeUsers || [];
+
   return (
     <section className="mb-12">
       <div className="flex items-center gap-2 mb-4">
@@ -252,11 +259,17 @@ function PaidStatsSection() {
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-strong rounded-2xl p-5">
+        <div 
+          onClick={() => setViewing(viewing === "paid" ? null : "paid")}
+          className={`glass-strong rounded-2xl p-5 cursor-pointer transition ${viewing === "paid" ? "border-rose-gold" : "hover:border-rose-gold/40"}`}
+        >
           <div className="text-xs font-mono uppercase tracking-widest text-rose-gold">paid members</div>
           <div className="font-serif text-4xl mt-2">{paid}</div>
         </div>
-        <div className="glass-strong rounded-2xl p-5">
+        <div 
+          onClick={() => setViewing(viewing === "free" ? null : "free")}
+          className={`glass-strong rounded-2xl p-5 cursor-pointer transition ${viewing === "free" ? "border-rose-gold" : "hover:border-rose-gold/40"}`}
+        >
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">free users</div>
           <div className="font-serif text-4xl mt-2">{free}</div>
         </div>
@@ -269,6 +282,35 @@ function PaidStatsSection() {
           <div className="font-serif text-4xl mt-2">₹{revenue.toLocaleString("en-IN")}</div>
         </div>
       </div>
+
+      {viewing && (
+        <div className="mt-4 glass rounded-2xl p-5 animate-in fade-in slide-in-from-top-4">
+          <h3 className="font-serif text-xl mb-4">{viewing === "paid" ? "Paid Members" : "Free Users"}</h3>
+          <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
+            {(viewing === "paid" ? paidUsers : freeUsers).length === 0 && (
+              <div className="text-sm text-muted-foreground">No users in this category.</div>
+            )}
+            {(viewing === "paid" ? paidUsers : freeUsers).map((u) => (
+              <div key={u.email} className="glass-strong rounded-xl p-3 flex flex-wrap items-center gap-3">
+                <div className="flex-1 min-w-[200px]">
+                  <div className="text-sm font-medium">{u.name || "Unknown"}</div>
+                  <div className="text-xs text-muted-foreground">{u.email}</div>
+                </div>
+                {u.paidUntil && new Date(u.paidUntil).getTime() > Date.now() && (
+                  <div className="text-xs font-mono text-rose-gold">
+                    Active until {new Date(u.paidUntil).toLocaleDateString()}
+                  </div>
+                )}
+                {u.paidUntil && new Date(u.paidUntil).getTime() <= Date.now() && new Date(u.paidUntil).getTime() > 0 && (
+                  <div className="text-xs font-mono text-muted-foreground">
+                    Expired {new Date(u.paidUntil).toLocaleDateString()}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
