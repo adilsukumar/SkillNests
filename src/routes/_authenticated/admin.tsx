@@ -4,7 +4,7 @@ import { useAuth } from "@/lib/auth";
 import { useEffect, useState } from "react";
 import { BarChart3, BookOpen, Calendar, Code2, Compass, FileText, Inbox, Trophy, Users, Video, IndianRupee, CheckCircle2, XCircle, Smartphone, Search } from "lucide-react";
 import { pyqStore, notesStore, meetingsStore, scheduleStore, skillStore, codingStore, founderInboxStore, careerVideoStore, careerLiveStore, paymentRequestsStore, munStore, olympiadStore } from "@/stores";
-import { findUserByEmail, setUserPaid, resetUserDevices, getUser, subscribePaidStats, type AdminUserRow, type PaidStats } from "@/lib/admin-users";
+import { findUserByEmail, setUserPaid, resetUserDevices, getUser, subscribePaidStats, deleteUserDoc, type AdminUserRow, type PaidStats } from "@/lib/admin-users";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -163,6 +163,14 @@ function MembersSection() {
     await refresh();
   }
 
+  async function deleteUser() {
+    if (!user) return;
+    if (!confirm(`Are you absolutely sure you want to completely delete ${user.email}? They will have to sign up again from scratch.`)) return;
+    await deleteUserDoc(user.uid);
+    toast.success("User deleted successfully.");
+    setUserRow(null);
+  }
+
   return (
     <section className="mb-12">
       <div className="flex items-center gap-2 mb-4">
@@ -183,6 +191,7 @@ function MembersSection() {
             <div className="ml-auto flex gap-2">
               <button onClick={togglePaid} className="btn-ghost-gold rounded-full px-4 py-1.5 text-xs">{user.paid ? "Mark unpaid" : "Unlock manually"}</button>
               <button onClick={clearDevices} className="btn-phoenix rounded-full px-4 py-1.5 text-xs">Reset devices</button>
+              <button onClick={deleteUser} className="rounded-full px-4 py-1.5 text-xs border border-crimson/50 text-crimson hover:bg-crimson/10 transition">Delete user</button>
             </div>
           </div>
           <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">Devices ({(user.devices ?? []).length} / 2)</div>

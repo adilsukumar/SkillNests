@@ -24,6 +24,9 @@ service cloud.firestore {
         && (!('paid' in request.resource.data.diff(resource.data).affectedKeys()))
         && (!('paidUntil' in request.resource.data.diff(resource.data).affectedKeys()))
       );
+
+      // Delete: Admin can delete user documents.
+      allow delete: if isAdmin();
     }
 
     // Group chat: any signed-in user can read & post; admin can delete.

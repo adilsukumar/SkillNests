@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, deleteDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { ADMIN_EMAIL, FREE_EMAILS } from "./auth";
 
@@ -119,4 +119,8 @@ export async function getUser(uid: string): Promise<AdminUserRow | null> {
   const snap = await getDoc(doc(db, "users", uid));
   if (!snap.exists()) return null;
   return { uid, ...(snap.data() as object) } as AdminUserRow;
+}
+
+export async function deleteUserDoc(uid: string) {
+  await deleteDoc(doc(db, "users", uid));
 }
