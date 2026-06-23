@@ -39,7 +39,7 @@ function ChatPage() {
           <TabBtn active={tab === "group"} onClick={() => setTab("group")} icon={<Users className="w-4 h-4" />} label="Group" />
           <TabBtn active={tab === "dm"} onClick={() => setTab("dm")} icon={<MessageCircle className="w-4 h-4" />} label={isAdmin ? "Direct messages" : "Message admin"} />
           {isAdmin && (
-            <TabBtn active={tab === "founder"} onClick={() => setTab("founder")} icon={<Inbox className="w-4 h-4" />} label={`Founder inbox (${founderMsgs.length})`} />
+            <TabBtn active={tab === "founder"} onClick={() => setTab("founder")} icon={<Inbox className="w-4 h-4" />} label={`Team inbox (${founderMsgs.length})`} />
           )}
         </div>
 
@@ -73,9 +73,9 @@ function ChatPage() {
               <button
                 onClick={() => {
                   if (founderMsgs.length === 0) return;
-                  if (!confirm("Delete ALL founder messages? This cannot be undone.")) return;
+                  if (!confirm("Delete ALL team messages? This cannot be undone.")) return;
                   founderInboxStore.set([]);
-                  toast.success("Founder inbox cleared.");
+                  toast.success("Team inbox cleared.");
                 }}
                 disabled={founderMsgs.length === 0}
                 className="text-xs glass rounded-full px-3 py-1.5 text-muted-foreground hover:text-crimson disabled:opacity-40 flex items-center gap-1.5"
@@ -83,7 +83,7 @@ function ChatPage() {
                 <Trash2 className="w-3 h-3" /> Delete all
               </button>
             </div>
-            {founderMsgs.length === 0 && <div className="glass rounded-2xl p-8 text-center text-sm text-muted-foreground">No founder messages yet.</div>}
+            {founderMsgs.length === 0 && <div className="glass rounded-2xl p-8 text-center text-sm text-muted-foreground">No team messages yet.</div>}
             {[...founderMsgs].reverse().map((m) => (
               <div key={m.id} className="glass rounded-2xl p-4 group relative">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">

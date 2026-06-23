@@ -85,7 +85,7 @@ const features: Array<{ to: FeaturePath; icon: LucideIcon; title: string; desc: 
   {
     to: "/founder",
     icon: UserIcon,
-    title: "Founder",
+    title: "The Team",
     desc: "Read the bio. Send a direct message.",
   },
 ];
@@ -136,7 +136,7 @@ function Dashboard() {
             </p>
             <p className="mt-3 max-w-2xl text-sm text-muted-foreground leading-relaxed">
               Pick a corner. Browse PYQs at your pace, sit in on a session, share what you're good
-              at, or just message the founder. Nothing here is a leaderboard.
+              at, or just message the team. Nothing here is a leaderboard.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link to="/pyq" className="btn-phoenix px-6 py-3 rounded-full text-sm font-medium">
@@ -226,7 +226,7 @@ function Dashboard() {
               to="/chat"
               icon={MessageCircle}
               title="Chat"
-              desc="Group room + DM the founder."
+              desc="Group room + DM the team."
             />
             <PersonalCard
               to="/schedule"

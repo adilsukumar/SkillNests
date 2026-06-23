@@ -41,7 +41,7 @@ function FounderPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-16">
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <div className="text-center mb-10">
-            <h1 className="font-serif text-3xl sm:text-4xl">Meet the Founders</h1>
+            <h1 className="font-serif text-3xl sm:text-4xl">The Team</h1>
             <p className="text-xs font-mono uppercase tracking-widest text-rose-gold mt-2">Behind skillnests.in</p>
           </div>
 
@@ -51,35 +51,52 @@ function FounderPage() {
               { name: "Anam Zia", photo: anamPhoto, bio: "Education that Complets and not competes.", email: "ziaanam1522@gmail.com" },
               { name: "Anant Arya", photo: anantPhoto, bio: "Finally it's time that we take a step towards skillnests.in.", email: "bachcha690@gmail.com" },
               { name: "Abhinav Pratap", photo: abhinavPhoto, bio: "Let's come together at skillnests.in and escape the matrix. Let's make education more interactive.", email: "abhinavpratap666@gmail.com" },
+            ];
+            
+            const coreMembers = [
               { name: "Sanvi Kumar", photo: sanviPhoto, bio: "Finally it's time that we take a step towards skillnests.in.", email: "sanvi.kumarstm@gmail.com" },
               { name: "Miska Rai", photo: miskaPhoto, bio: "Finally it's time that we take a step towards skillnests.in.", email: "raimiska.8579@gmail.com" },
             ];
-            return (
-              <div className="flex flex-col gap-6 mb-10">
-                {founders.map((f) => (
-                  <div key={f.email} className="glass-strong rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-                    <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden ring-2 ring-rose-gold/30 shadow-lg">
-                      <img src={f.photo} alt={f.name} className={`w-full h-full object-cover ${f.name === "Abhinav Pratap" ? "object-[center_25%]" : ""}`} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h2 className="font-serif text-2xl">{f.name}</h2>
-                      <p className="text-xs font-mono uppercase tracking-widest text-rose-gold mt-1 mb-3">Co-Founder</p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{f.bio}</p>
-                      <div className="mt-4 flex items-center justify-center sm:justify-start gap-2 text-sm text-rose-gold px-2">
-                        <Mail className="w-4 h-4 flex-shrink-0" />
-                        <a href={`mailto:${f.email}`} className="hover:underline break-words">{f.email}</a>
-                      </div>
-                    </div>
+
+            const PersonCard = ({ f, role }: { f: any, role: string }) => (
+              <div key={f.email} className="glass-strong rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+                <div className="shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden ring-2 ring-rose-gold/30 shadow-lg">
+                  <img src={f.photo} alt={f.name} className={`w-full h-full object-cover ${f.name === "Abhinav Pratap" ? "object-[center_25%]" : ""}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="font-serif text-2xl">{f.name}</h2>
+                  <p className="text-xs font-mono uppercase tracking-widest text-rose-gold mt-1 mb-3">{role}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.bio}</p>
+                  <div className="mt-4 flex items-center justify-center sm:justify-start gap-2 text-sm text-rose-gold px-2">
+                    <Mail className="w-4 h-4 flex-shrink-0" />
+                    <a href={`mailto:${f.email}`} className="hover:underline break-words">{f.email}</a>
                   </div>
-                ))}
+                </div>
               </div>
+            );
+
+            return (
+              <>
+                <div className="flex flex-col gap-6 mb-16">
+                  {founders.map((f) => <PersonCard key={f.email} f={f} role="Co-Founder" />)}
+                </div>
+                
+                <div className="text-center mb-10">
+                  <h1 className="font-serif text-3xl sm:text-4xl">Core Members</h1>
+                  <p className="text-xs font-mono uppercase tracking-widest text-rose-gold mt-2">The Backbone</p>
+                </div>
+                
+                <div className="flex flex-col gap-6 mb-10">
+                  {coreMembers.map((f) => <PersonCard key={f.email} f={f} role="Core Member" />)}
+                </div>
+              </>
             );
           })()}
 
           <form onSubmit={send} className="glass rounded-3xl p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-5">
               <MessageCircle className="w-5 h-5 text-rose-gold" strokeWidth={1.2} />
-              <h2 className="font-serif text-2xl">Direct message the founders</h2>
+              <h2 className="font-serif text-2xl">Direct message the team</h2>
             </div>
             <p className="text-xs text-muted-foreground mb-4">Sent as <span className="text-rose-gold">{user?.name}</span> ({user?.email})</p>
             <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={6} placeholder="Write what's on your mind…" className="w-full glass rounded-2xl px-4 py-3 text-sm bg-transparent outline-none resize-none focus-within:border-rose-gold/40" />

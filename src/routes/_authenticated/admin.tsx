@@ -217,7 +217,7 @@ function FounderInboxSection() {
     <section>
       <div className="flex items-center gap-2 mb-4">
         <Inbox className="w-5 h-5 text-rose-gold" strokeWidth={1.2} />
-        <h2 className="font-serif text-2xl">Founder inbox</h2>
+        <h2 className="font-serif text-2xl">Team inbox</h2>
         <span className="ml-auto text-xs font-mono text-muted-foreground">{inbox.length} messages</span>
       </div>
       <div className="space-y-3">
