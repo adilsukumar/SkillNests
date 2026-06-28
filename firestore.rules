@@ -76,6 +76,7 @@ service cloud.firestore {
     match /sn-career-vids/{id}{ allow read: if signedIn(); allow write: if isAdmin(); }
     match /sn-mun/{id}        { allow read: if signedIn(); allow write: if isAdmin(); }
     match /sn-olympiads/{id}  { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /sn-notices/{id}    { allow read: if signedIn(); allow write: if isAdmin(); }
 
     // Skill share: any signed-in user reads & creates; author edits/deletes own.
     match /sn-skill/{id} {
