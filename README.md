@@ -1,80 +1,118 @@
-# SkillNests
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/hero-mobile.svg"/><img src="assets/readme/hero.svg" width="100%" alt="SkillNests: Room to learn. People to grow with. Academic resources, shared skills and community workflows. Concept book artwork."/></picture></p>
 
-**Education that completes — and not competes.**
+<p align="center"><a href="#the-learning-space">Overview</a> · <a href="#more-than-one-way-to-learn">Community</a> · <a href="#how-the-application-connects">Architecture</a> · <a href="#run-locally">Run locally</a> · <a href="#configuration-and-deployment">Configure</a> · <a href="#explore-the-source">Source</a></p>
 
-SkillNests is a modern, unified educational platform designed to provide a holistic and non-competitive learning environment for students. Built with a focus on deep understanding, community, and beautifully crafted design, SkillNests goes beyond traditional test prep by emphasizing real skills and collaborative growth.
+## <img src="assets/readme/icon-book.svg" width="30" height="30" alt=""/> The learning space
 
----
+I built SkillNests around learning that has room for more than an exam score: academic resources, conversations, creative skills and the things students can build together. The application brings those areas into one signed-in workspace with content tools, community features and personal progress views.
 
-## 🌟 Key Features
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/features-mobile.svg"/><img src="assets/readme/features.svg" width="100%" alt="Academic papers and notes, meetings and chat, skill sharing and coding, schedules and career resources."/></picture></p>
 
-*   **📚 Academic Excellence (PYQs)**
-    *   Subject, class, and year drill-down for past-year papers.
-    *   Clean, distraction-free PDF viewer.
-*   **📝 Study Notes**
-    *   Curated, chapter-wise notes that are actually pleasant to read.
-*   **🤝 Meeting Hub**
-    *   Global sessions hosted by admins and peer-hosted study rooms.
-    *   Seamless Google Meet and Zoom integration.
-*   **📅 Schedule & Events**
-    *   Keep track of upcoming classes, academic milestones, and community events.
-*   **🧭 Career Guidance**
-    *   Live class links and deep-dives into various career paths.
-*   **🏆 Olympiads**
-    *   Resources focused on depth of knowledge rather than just medals.
-*   **⚖️ MUN & Debate**
-    *   "Voice an opinion. Defend it gently." Resources and prep for Model United Nations.
-*   **🎨 Skill Share & Coding Campus**
-    *   A unified space to learn and build together.
-    *   **Community Skills:** Users can upload tutorials, share passions (like watercolor, chess, or calligraphy), and host live classes.
-    *   **Coding Workshops:** Admin-hosted live coding workshops. No tutorial hell—just real code.
+Past-year questions can be organized by stream, subject, class and year. Notes use subject/chapter navigation and a PDF viewer, including handling for Google Drive links. Content is managed through the application’s stores and admin interfaces; resource availability depends on the connected project’s data.
 
-## 🛠️ Tech Stack
+## <img src="assets/readme/icon-people.svg" width="30" height="30" alt=""/> More than one way to learn
 
-*   **Framework:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
-*   **Routing & SSR:** [TanStack Start](https://tanstack.com/router) / [TanStack Router](https://tanstack.com/router)
-*   **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with a custom design system focusing on rich aesthetics, glassmorphism, and micro-animations.
-*   **Backend & DB:** [Firebase](https://firebase.google.com/) (Auth, Firestore DB)
-*   **Payments:** [Razorpay](https://razorpay.com/) integration for premium unlocks.
-*   **Icons:** [Lucide React](https://lucide.dev/)
-*   **Animations:** [Framer Motion](https://www.framer.com/motion/)
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/community-mobile.svg"/><img src="assets/readme/community.svg" width="100%" alt="Olympiad and Model UN resources, community participation, progress tracking and XP."/></picture></p>
 
-## 🎨 Design Philosophy
+| Area | Included interface and data workflow |
+|---|---|
+| Meeting hub | Global and peer sessions with external meeting links |
+| Skill share | Tutorial posts, video links and class links |
+| Coding | Workshop records with language, level, time and meeting URL |
+| Career guidance | Live-session links and recorded-resource entries |
+| Schedule | Academic, extracurricular, career and other events |
+| Olympiads | Subject, topic, date and resource records |
+| MUN and debate | Committee resources, debate posts and comments |
+| Progress | Daily goals, completion flags, XP profiles and levels |
+| Community | Group chat, direct messages and founder inbox |
 
-SkillNests is built to break away from the sterile, rigid designs of traditional EdTech platforms. 
-*   **Warm Aesthetics:** Utilizing champagne, rose gold, and deep phoenix tones instead of stark blacks and whites.
-*   **Fluidity:** Smooth gradients, subtle grain overlays, and glassmorphic panels ensure the platform feels alive and responsive.
-*   **Non-Competitive UI:** No leaderboards, no anxiety-inducing countdowns. The interface is deliberately designed to feel like a "nest"—a safe place to grow.
+The original product direction emphasizes a supportive space. The current code also includes an XP leaderboard, so the README does not claim that ranking features are absent. Meeting links open external services; the project is not a built-in video-conferencing engine.
 
-## 🚀 Getting Started
+## <img src="assets/readme/icon-pipeline.svg" width="30" height="30" alt=""/> How the application connects
 
-1.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/architecture-mobile.svg"/><img src="assets/readme/architecture.svg" width="100%" alt="Firebase accounts, Firestore-backed reactive stores and server functions for meetings and subscriptions."/></picture></p>
 
-2.  **Set up environment variables:**
-    Create a `.env` file in the root directory and add your Firebase and Razorpay keys:
-    ```env
-    VITE_FIREBASE_API_KEY=your_api_key
-    VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-    VITE_FIREBASE_PROJECT_ID=your_project_id
-    VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-    VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-    VITE_FIREBASE_APP_ID=your_app_id
-    VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
-    ```
+React 19 and TanStack Start/Router provide the web application and routes. Tailwind CSS v4, Radix/shadcn components, Lucide and Framer Motion support the interface. Firebase Auth and Firestore provide accounts and persistent records.
 
-3.  **Start the development server:**
-    ```bash
-    npm run dev
-    ```
+Despite its name, `createLocalStore` is currently **Firestore-backed**. It keeps an in-memory cache, subscribes with `onSnapshot`, and writes record differences to Firestore. Local browser storage is used for some interface state such as seen-resource IDs; the app is not an offline-only local store.
 
-4.  **Build for production:**
-    ```bash
-    npm run build
-    ```
+Razorpay server helpers create, verify and manage subscription records. Paid gates and account state connect premium access to the application UI. These are implemented integration paths, not evidence that live payments or all permission cases have been independently validated.
 
----
+## <img src="assets/readme/icon-terminal.svg" width="30" height="30" alt=""/> Run locally
 
-*Built with ❤️ for a better way to learn.*
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/environment-mobile.svg"/><img src="assets/readme/environment.svg" width="100%" alt="Install dependencies and run the Vite development server, with the matching Firebase setup."/></picture></p>
+
+Use a Node release compatible with the pinned Vite 8 toolchain and npm:
+
+```bash
+git clone https://github.com/adilsukumar/SkillNests.git
+cd SkillNests
+npm install
+npm run dev
+```
+
+The server requests `http://localhost:8080`; follow the actual URL printed by Vite if that port is in use.
+
+```bash
+npm run lint
+npm run build
+npm run preview
+```
+
+The package also declares `npm run build:dev` and `npm run format`. There is currently no dedicated automated test script.
+
+## <img src="assets/readme/icon-local.svg" width="30" height="30" alt=""/> Configuration and deployment
+
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/setup-mobile.svg"/><img src="assets/readme/setup.svg" width="100%" alt="React/TanStack application, source-configured Firebase project and required content and permission setup."/></picture></p>
+
+### Firebase
+
+The current [Firebase module](src/lib/firebase.ts) contains a project configuration directly. The `VITE_FIREBASE_*` variables from the older README are not read by that module. When adapting the project, update the configuration deliberately and keep its project identity consistent with the meeting-server token verification.
+
+Follow [FIREBASE_SETUP.md](FIREBASE_SETUP.md) to enable email/password and Google sign-in, create Firestore, configure authorized domains and publish [firestore.rules](firestore.rules). The setup notes and auth code include a designated founder/admin email; review that identity for your own deployment. Firebase client configuration does not replace database rules or server authorization.
+
+### Server integrations
+
+| Variable | Used by |
+|---|---|
+| `FIREBASE_SERVICE_ACCOUNT_JSON` | Server-side meeting functions and Firestore REST access |
+| `RAZORPAY_KEY_ID` | Server-side Razorpay requests |
+| `RAZORPAY_KEY_SECRET` | Server-side Razorpay authentication and signature verification |
+| `RAZORPAY_WEBHOOK_SECRET` | Razorpay webhook verification |
+
+Keep service-account JSON and payment secrets in the server environment. Do not expose them through `VITE_` variables or commit credential files. A frontend `.env` key name from the old README does not configure these server helpers.
+
+### Hosted build
+
+This is a TanStack Start application with server functions. The repository’s [Vercel configuration](vercel.json) publishes `dist/client` and routes requests through [api/index.js](api/index.js), including `dist/server`. Use the matching server deployment rather than treating the build as a standalone static directory.
+
+Auth, content, meetings and paid areas depend on the connected Firebase project, Firestore rules, stored resources and relevant server secrets. Check those integrations using a test account and payment test mode before accepting real subscriptions.
+
+## <img src="assets/readme/icon-docs.svg" width="30" height="30" alt=""/> Explore the source
+
+<p align="center"><a href="src/stores/index.ts"><img src="assets/readme/doc-0.svg" width="430" alt="Learning stores: Resource, community and progress data models"/></a> <a href="src/lib/local-store.ts"><img src="assets/readme/doc-1.svg" width="430" alt="Reactive data layer: Firestore snapshots and record writes"/></a> <a href="src/lib/meetings.functions.ts"><img src="assets/readme/doc-2.svg" width="430" alt="Meeting functions: Verified users and meeting operations"/></a> <a href="FIREBASE_SETUP.md"><img src="assets/readme/doc-3.svg" width="430" alt="Firebase setup: Auth providers, collections and project setup"/></a></p>
+
+| Area | Source |
+|---|---|
+| Past-year papers | [pyq.tsx](src/routes/_authenticated/pyq.tsx) |
+| Notes | [notes.tsx](src/routes/_authenticated/notes.tsx) |
+| Skill sharing | [skill-share.tsx](src/routes/_authenticated/skill-share.tsx) |
+| Meetings | [meetings.tsx](src/routes/_authenticated/meetings.tsx) |
+| Progress and leaderboard | [progress.tsx](src/routes/_authenticated/progress.tsx) · [leaderboard.tsx](src/routes/_authenticated/leaderboard.tsx) |
+| Subscription helpers | [razorpay.functions.ts](src/lib/razorpay.functions.ts) |
+| Webhook handler | [razorpay.ts](src/routes/api/public/hooks/razorpay.ts) |
+| PDF presentation | [DrivePdfViewer.tsx](src/components/DrivePdfViewer.tsx) |
+
+```text
+src/routes/             public and authenticated application routes
+src/components/         site sections, resource viewers and UI
+src/stores/             resource and community data models
+src/lib/                Firebase, auth, stores and server functions
+firestore.rules         database access rules
+FIREBASE_SETUP.md       project provisioning notes
+api/index.js            hosted server entry
+```
+
+<p><picture><source media="(max-width: 600px)" srcset="assets/readme/closing-mobile.svg"/><img src="assets/readme/closing.svg" width="100%" alt="Education that completes — and not competes. Learn something, share something, build together."/></picture></p>
+
+<p align="center"><a href="https://github.com/adilsukumar/SkillNests/issues">Discuss an improvement</a> · <a href="src/stores/index.ts">Explore the learning models</a> · <a href="https://www.adilsukumar.xyz/">Meet the builder</a></p>
