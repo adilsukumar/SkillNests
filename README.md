@@ -2,6 +2,8 @@
 
 <p align="center"><a href="#the-learning-space">Overview</a> · <a href="#more-than-one-way-to-learn">Community</a> · <a href="#how-the-application-connects">Architecture</a> · <a href="#run-locally">Run locally</a> · <a href="#configuration-and-deployment">Configure</a> · <a href="#explore-the-source">Source</a></p>
 
+<a id="the-learning-space"></a>
+
 ## <img src="assets/readme/icon-book.svg" width="30" height="30" alt=""/> The learning space
 
 I built SkillNests around learning that has room for more than an exam score: academic resources, conversations, creative skills and the things students can build together. The application brings those areas into one signed-in workspace with content tools, community features and personal progress views.
@@ -9,6 +11,8 @@ I built SkillNests around learning that has room for more than an exam score: ac
 <p><picture><source media="(max-width: 600px)" srcset="assets/readme/features-mobile.svg"/><img src="assets/readme/features.svg" width="100%" alt="Academic papers and notes, meetings and chat, skill sharing and coding, schedules and career resources."/></picture></p>
 
 Past-year questions can be organized by stream, subject, class and year. Notes use subject/chapter navigation and a PDF viewer, including handling for Google Drive links. Content is managed through the application’s stores and admin interfaces; resource availability depends on the connected project’s data.
+
+<a id="more-than-one-way-to-learn"></a>
 
 ## <img src="assets/readme/icon-people.svg" width="30" height="30" alt=""/> More than one way to learn
 
@@ -28,6 +32,8 @@ Past-year questions can be organized by stream, subject, class and year. Notes u
 
 The original product direction emphasizes a supportive space. The current code also includes an XP leaderboard, so the README does not claim that ranking features are absent. Meeting links open external services; the project is not a built-in video-conferencing engine.
 
+<a id="how-the-application-connects"></a>
+
 ## <img src="assets/readme/icon-pipeline.svg" width="30" height="30" alt=""/> How the application connects
 
 <p><picture><source media="(max-width: 600px)" srcset="assets/readme/architecture-mobile.svg"/><img src="assets/readme/architecture.svg" width="100%" alt="Firebase accounts, Firestore-backed reactive stores and server functions for meetings and subscriptions."/></picture></p>
@@ -37,6 +43,8 @@ React 19 and TanStack Start/Router provide the web application and routes. Tailw
 Despite its name, `createLocalStore` is currently **Firestore-backed**. It keeps an in-memory cache, subscribes with `onSnapshot`, and writes record differences to Firestore. Local browser storage is used for some interface state such as seen-resource IDs; the app is not an offline-only local store.
 
 Razorpay server helpers create, verify and manage subscription records. Paid gates and account state connect premium access to the application UI. These are implemented integration paths, not evidence that live payments or all permission cases have been independently validated.
+
+<a id="run-locally"></a>
 
 ## <img src="assets/readme/icon-terminal.svg" width="30" height="30" alt=""/> Run locally
 
@@ -60,6 +68,8 @@ npm run preview
 ```
 
 The package also declares `npm run build:dev` and `npm run format`. There is currently no dedicated automated test script.
+
+<a id="configuration-and-deployment"></a>
 
 ## <img src="assets/readme/icon-local.svg" width="30" height="30" alt=""/> Configuration and deployment
 
@@ -87,6 +97,8 @@ Keep service-account JSON and payment secrets in the server environment. Do not 
 This is a TanStack Start application with server functions. The repository’s [Vercel configuration](vercel.json) publishes `dist/client` and routes requests through [api/index.js](api/index.js), including `dist/server`. Use the matching server deployment rather than treating the build as a standalone static directory.
 
 Auth, content, meetings and paid areas depend on the connected Firebase project, Firestore rules, stored resources and relevant server secrets. Check those integrations using a test account and payment test mode before accepting real subscriptions.
+
+<a id="explore-the-source"></a>
 
 ## <img src="assets/readme/icon-docs.svg" width="30" height="30" alt=""/> Explore the source
 
